@@ -3,10 +3,16 @@ package com.college.converter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.college.converter.databinding.ActivityMainBinding;
+
+
+
 
 /*
     TODOs:
@@ -23,12 +29,23 @@ import android.widget.TextView;
 */
 
 public class MainActivity extends AppCompatActivity {
+
+
+
+
+
+
+
+
+
     static private final Float CONVERSION_RATE = 0.80F;
+    private static String TAG = "MainActivity";// ViewBinding instance
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.i("MainActivity", "Entering onCreate()");
         Button buttonConvert = findViewById(R.id.convertButton);
 
         buttonConvert.setOnClickListener( view ->  {
@@ -37,12 +54,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void convertCurrency(View view) {
+        Log.i("MainActivity", "Entering convertCurrency()");
 
-        EditText inputView = findViewById(R.id.entryId);
+        EditText inputView = binding.entryId;
 
         String inputAmount = inputView.getText().toString();
 
-        TextView resultView = findViewById(R.id.resultId);
+        TextView resultView = binding.resultId;
 
         if (!inputAmount.isEmpty()) {
             Float inputAmountDecimal = Float.valueOf(inputAmount);
@@ -50,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             Float resultFloat = inputAmountDecimal * CONVERSION_RATE;
 
             resultView.setText( resultFloat + " Euros" );
+            Log.i("MainActivity", "Exiting convertCurrency()");
         }
     }
 }
